@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>JCIBravo</title>
+    <link rel="stylesheet" href="estilo.css">
+
+    <script>
+        var timeouts = []
+
+        function clearAllTimeouts(){
+            for (let i = 0; i < timeouts.length; i++) {
+                clearTimeout(timeouts[i]);
+            }
+        }
+
+        function ocultarBotones() {
+            document.getElementById("botonDuerme").style.display = "none"
+            document.getElementById("botonFeliz").style.display = "none"
+            document.getElementById("botonDecir").style.display = "none"
+        }
+
+        function mostrarBotones() {
+            document.getElementById("botonDuerme").style.display = "inline"
+            document.getElementById("botonFeliz").style.display = "inline"
+            document.getElementById("botonDecir").style.display = "inline"
+        }
+
+        function ojosCerrados() {
+            document.getElementById("cara").innerHTML = "(-.-)"
+            document.getElementById("hablando").innerHTML = ". . ."
+            clearAllTimeouts()
+            timeouts.push(setTimeout(ojosAbiertos, 125))
+        }
+
+        function ojosAbiertos() {
+            document.getElementById("cara").innerHTML = "(o.o)"
+            document.getElementById("hablando").innerHTML = ". . ."
+            clearAllTimeouts()
+            timeouts.push(setTimeout(ojosCerrados, 4500))
+        }
+
+        function caraDurmiendo() {
+            document.getElementById("cara").innerHTML = "(-. -)zzZZ"
+            document.getElementById("hablando").innerHTML = "*sonidos de ronquidos*"
+            document.getElementById("botonDespierta").style.display = "inline"
+            ocultarBotones()
+            clearAllTimeouts()
+        }
+
+        function caraDespertando() {
+            document.getElementById("cara").innerHTML = "(o-o)!!"
+            document.getElementById("hablando").innerHTML = ". . ."
+            document.getElementById("botonDespierta").style.display = "none"
+            mostrarBotones()
+            clearAllTimeouts()
+            timeouts.push(setTimeout(ojosCerrados, 750))
+        }
+
+        function caraFeliz() {
+            document.getElementById("cara").innerHTML = "(^-^)"
+            document.getElementById("hablando").innerHTML = "¡Gracias!"
+            clearAllTimeouts()
+            timeouts.push(setTimeout(ojosCerrados, 1500))
+        }
+
+        function caraPensativa() {
+            prompt("Dile algo a la carita","Escribe aquí")
+            document.getElementById("cara").innerHTML = "(o∙o)"
+            document.getElementById("hablando").innerHTML = "¡Interesante...!"
+            clearAllTimeouts()
+            timeouts.push(setTimeout(ojosAbiertos, 2000))
+        }
+
+    </script>
+</head>
+<body>
+    <div class="titulo">
+        <p id="cara">(-. -)zzZZ</p>
+        <h4 id="hablando" class="texto">. . .</h4>
+        <button id="botonDespierta" onclick="caraDespertando()">¡Despierta!</button>
+        <button id="botonFeliz" onclick="caraFeliz()">*pat*</button>
+        <button id="botonDuerme" onclick="caraDurmiendo()">Duerme</button>
+        <button id="botonDecir" onclick="caraPensativa()">Dile algo</button>
+    </div>
+</body>
+</html>
