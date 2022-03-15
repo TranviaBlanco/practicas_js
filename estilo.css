@@ -14,6 +14,10 @@ button:hover{
     background-color: #9d9d9d;
 }
 
+.centrar {
+    text-align: center;
+}
+
 .titulo{
     font-size: 150px;
     text-align: center;
@@ -21,6 +25,37 @@ button:hover{
 
 .texto{
     font-size: 25px;
+}
+
+.lista select{
+    width: 150px;
+}
+
+table.tabla {
+    border: 3px solid #000000;
+    width: 150px;
+    text-align: left;
+    border-collapse: collapse;
+}
+table.tabla td, table.tabla th {
+    border: 1px solid #000000;
+    padding: 5px 4px;
+}
+table.tabla tbody td {
+    font-size: 45px;
+}
+table.tabla thead {
+    background: #CFCFCF;
+    border-bottom: 3px solid #000000;
+}
+table.tabla thead th {
+    font-size: 45px;
+    font-weight: bold;
+    color: #000000;
+    text-align: center;
+}
+table.tabla tfoot td {
+    font-size: 45px;
 }
 
 #botonDuerme{

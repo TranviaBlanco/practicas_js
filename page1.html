@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="estilo.css">
+
+    <script>
+        let url = 'https://api.tmb.cat/v1/ibus/stops/XXXX?app_id=XXX&app_key=XXX';
+        for (let i = out.data.ibus.indexOf) { //WIP
+            fetch(url)
+                .then(res => res.json())
+                .then(out =>
+                        console.log(out.data.ibus[i]))
+        }
+    </script>
+</head>
+<body>
+    <div class="lista">
+        <select onchange="if (this.value) window.location.href=this.value">
+            <option value="">Selecciona página:</option>
+            <option value="/Pagina1/page1.html">Página 1</option>
+            <option value="/Pagina1/index.html">Carita</option>
+        </select>
+    </div>
+
+    <table class="tabla">
+        <br/>
+        <tbody>
+            <tr>
+                <td><b>Linea</b></td>
+                <td><b>Próximo bus</b></td>
+                <td><b>Llegada</b></td>
+            </tr>
+            <tr>
+                <td id="linea">&nbsp;</td>
+                <td id="proximobus">&nbsp;</td>
+                <td id="llegada">&nbsp;</td>
+            </tr>
+            </tbody>
+    </table>
+</body>
+</html>
