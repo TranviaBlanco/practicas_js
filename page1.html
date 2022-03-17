@@ -6,26 +6,55 @@
     <link rel="stylesheet" href="estilo.css">
 
     <script>
-        let url = 'https://api.tmb.cat/v1/ibus/stops/XXXX?app_id=XXX&app_key=XXX';
-        for (let i = out.data.ibus.indexOf) { //WIP
-            fetch(url)
-                .then(res => res.json())
-                .then(out =>
-                        console.log(out.data.ibus[i]))
+        const apiTMB = `?app_id=XXX&app_key=XXX`
+        const valor = prompt("Introduce tu código de parada")
+
+        function check(data, i){
+            const linea = "linea"
+            const ruta = "proximobus"
+            const time = "llegada"
+            const text = "text"
+            document.getElementById(linea.concat(i)).innerHTML = data[i-1].line
+            document.getElementById(ruta.concat(i)).innerHTML = data[i-1].destination
+            document.getElementById(ruta.concat(i)).innerHTML = data[i-1].item["text-ca"]
         }
+
+        let url_iBus = `https://api.tmb.cat/v1/ibus/stops/${valor}${apiTMB}`
+        fetch(url_iBus)
+            .then(res => res.json())
+            .then(out => {
+                    check(out.data.ibus, 1)
+                    check(out.data.ibus, 2)
+                    check(out.data.ibus, 3)
+                    check(out.data.ibus, 4)
+                    check(out.data.ibus, 5)
+                    check(out.data.ibus, 6)
+                    check(out.data.ibus, 7)
+                }
+            )
+
+        let url_Parada = `https://api.tmb.cat/v1/transit/parades/${valor}${apiTMB}`
+        fetch(url_Parada)
+            .then(res => res.json())
+            .then(out => {
+                document.getElementById("nomParada").innerText = "[" + out.features[0].properties.CODI_PARADA + "] " + out.features[0].properties.NOM_PARADA
+                }
+            )
+
     </script>
 </head>
 <body>
     <div class="lista">
         <select onchange="if (this.value) window.location.href=this.value">
             <option value="">Selecciona página:</option>
-            <option value="/Pagina1/page1.html">Página 1</option>
-            <option value="/Pagina1/index.html">Carita</option>
+            <option value="./page1.html">Página 1</option>
+            <option value="./index.html">Carita</option>
         </select>
     </div>
 
     <table class="tabla">
         <br/>
+        <h1 id="nomParada">&nbsp;</h1>
         <tbody>
             <tr>
                 <td><b>Linea</b></td>
@@ -33,11 +62,41 @@
                 <td><b>Llegada</b></td>
             </tr>
             <tr>
-                <td id="linea">&nbsp;</td>
-                <td id="proximobus">&nbsp;</td>
-                <td id="llegada">&nbsp;</td>
+                <td id="linea1">&nbsp;</td>
+                <td id="proximobus1">&nbsp;</td>
+                <td id="llegada1">&nbsp;</td>
             </tr>
-            </tbody>
+            <tr>
+                <td id="linea2">&nbsp;</td>
+                <td id="proximobus2">&nbsp;</td>
+                <td id="llegada2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td id="linea3">&nbsp;</td>
+                <td id="proximobus3">&nbsp;</td>
+                <td id="llegada3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td id="linea4">&nbsp;</td>
+                <td id="proximobus4">&nbsp;</td>
+                <td id="llegada4">&nbsp;</td>
+            </tr>
+            <tr>
+                <td id="linea5">&nbsp;</td>
+                <td id="proximobus5">&nbsp;</td>
+                <td id="llegada5">&nbsp;</td>
+            </tr>
+            <tr>
+                <td id="linea6">&nbsp;</td>
+                <td id="proximobus6">&nbsp;</td>
+                <td id="llegada6">&nbsp;</td>
+            </tr>
+            <tr>
+                <td id="linea7">&nbsp;</td>
+                <td id="proximobus7">&nbsp;</td>
+                <td id="llegada7">&nbsp;</td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>
