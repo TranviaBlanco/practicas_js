@@ -7,16 +7,19 @@
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Aiga_bus.svg">
     <script type='text/javascript' src='config.js'></script>
     <script>
-        var apiTMB = config.TMB_API_TOKEN
-        var valor = getStopCode()
+        // var TMB_APP_ID = config.TMB_APP_ID
+        // var TMB_APP_KEY = config.TMB_APP_KEY
+        var TMB_APP_ID = ''
+        var TMB_APP_KEY = ''
+        var STOPCODE = ''
         let size = 0
 
         function getStopCode(){
-            valor = prompt("🚏 Introduce tu código de parada")
-            if (valor == "" || valor == " " || valor == null){
-                valor = 0
+            STOPCODE = document.getElementById("stopCode").value
+            if (STOPCODE == "" || STOPCODE == " " || STOPCODE == null){
+                STOPCODE = 0
             }
-            return valor
+            return STOPCODE
         }
 
         function addRow(data){
@@ -25,6 +28,7 @@
                 cell1 = row.insertCell(0),
                 cell2 = row.insertCell(1),
                 cell3 = row.insertCell(2);
+                row.id = 'busInfo'
 
             if (data[size - 1].line.includes("D")){
                 cell1.style.backgroundColor = "#8E308A"
@@ -76,29 +80,44 @@
             } while (size != 0)
         }
 
-        let url_iBus = `https://api.tmb.cat/v1/ibus/stops/${valor}${apiTMB}`
-        fetch(url_iBus)
-            .then(res => res.json())
-            .then(out => {
-                    size = out.data.ibus.length
-                    check(out.data.ibus, size
-                    )
-                }
-            )
+        function loadAPI() {
+            if (document.getElementById('busInfo') != null){
+                do {
+                    const row = document.getElementById('busInfo');
+                    row.parentElement.removeChild(row);
+                } while (document.getElementById('busInfo') != null)
+            }
 
-        let url_Parada = `https://api.tmb.cat/v1/transit/parades/${valor}${apiTMB}`
-        fetch(url_Parada)
-            .then(res => res.json())
-            .then(out => {
-                try{
-                    document.getElementById("nomParada").innerText = "[" + out.features[0].properties.CODI_PARADA + "] " + out.features[0].properties.NOM_PARADA
-                    document.getElementById("divAviso").style.display = "block"
-                } catch (e) {
-                    document.getElementById("nomParada").innerText = "ERROR"
-                    document.getElementById("divError").style.display = "block"
+            document.getElementById("nomParada").innerText = "Cargando..."
+            TMB_APP_ID = document.getElementById("appID").value;
+            TMB_APP_KEY = document.getElementById("appKey").value;
+            STOPCODE = getStopCode();
+            console.log(TMB_APP_ID, TMB_APP_KEY, STOPCODE);
+
+            let url_iBus = `https://api.tmb.cat/v1/ibus/stops/${STOPCODE}?app_id=${TMB_APP_ID}&app_key=${TMB_APP_KEY}`
+            fetch(url_iBus)
+                .then(res => res.json())
+                .then(out => {
+                        size = out.data.ibus.length
+                        check(out.data.ibus, size
+                        )
+                    }
+                )
+
+            let url_Parada = `https://api.tmb.cat/v1/transit/parades/${STOPCODE}?app_id=${TMB_APP_ID}&app_key=${TMB_APP_KEY}`
+            fetch(url_Parada)
+                .then(res => res.json())
+                .then(out => {
+                        try{
+                            document.getElementById("nomParada").innerText = "[" + out.features[0].properties.CODI_PARADA + "] " + out.features[0].properties.NOM_PARADA
+                            document.getElementById("divAviso").style.display = "block"
+                        } catch (e) {
+                            document.getElementById("nomParada").innerText = "ERROR"
+                            document.getElementById("divError").style.display = "block"
                     }
                 }
             )
+        }
 
     </script>
 </head>
@@ -110,9 +129,19 @@
             <option value="./index.html">Carita</option>
         </select>
     </div>
+    <br/>
+    <form action="#">
+        <label for="appID">APP ID:</label><br>
+        <input type="text" id="appID"><br>
+        <label for="appKey">APP KEY:</label><br>
+        <input type="text" id="appKey"><br><br>
+        <label for="appKey">CODIGO DE PARADA:</label><br>
+        <input type="number" id="stopCode"><br><br>
+        <input type="submit" value="Enviar" onclick="loadAPI()">
+    </form>
 
     <div class="result">
-        <h1 id="nomParada">Cargando...</h1>
+        <h1 id="nomParada">iBus</h1>
         <table id="iBus" class="tabla">
             <tbody>
             <tr class="tituloTabla">
@@ -126,14 +155,12 @@
 
     <div class="error" id="divError">
         <h1>🚍❌️ ERROR</h1>
-        <h2>Comprueba que tengas conexión a internet, que el código de parada haya sido introducido correctamente o que la parada no esté anulada temporal o permanentemente.</h2>
+        <h2>Comprueba que tengas conexión a internet, que tus claves de API estén bien puestas o, que el código de parada haya sido introducido correctamente o que la parada no esté anulada temporal o permanentemente.</h2>
     </div>
 
     <div class="aviso" id="divAviso">
         <h2>🚍⚠️ AVISO</h2>
         <h4>Sistema de próximo bus actualmente no disponible. (Ya veré como lo arreglo 'x] sorry)</h4>
     </div>
-
-    <button class="iBusPage" onclick="location.reload();">Volver a introducir código de parada</button>
 </body>
 </html>
