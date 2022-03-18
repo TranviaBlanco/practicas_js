@@ -5,7 +5,7 @@
     <title>My Simple iBus</title>
     <link rel="stylesheet" href="estilo.css">
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Aiga_bus.svg">
-    <script type='text/javascript' src='config.js'></script>
+    <script type='text/javascript' src='config.js'></script> <!-- Archivo privado donde lo tengo guarado (está en el gitignore) -->
     <script>
         // var TMB_APP_ID = config.TMB_APP_ID
         // var TMB_APP_KEY = config.TMB_APP_KEY
@@ -23,6 +23,7 @@
         }
 
         function addRow(data){
+            document.getElementById('iBus').style.display = "table"
             const table = document.getElementById('iBus'),
                 row = table.insertRow(1),
                 cell1 = row.insertCell(0),
@@ -30,22 +31,22 @@
                 cell3 = row.insertCell(2);
                 row.id = 'busInfo'
 
-            if (data[size - 1].line.includes("D")){
+            if (data[size - 1]['line'].includes("D")){
                 cell1.style.backgroundColor = "#8E308A"
                 cell1.style.color = "#FFFFFF"
             }
 
-            else if (data[size - 1].line.includes("H")){
+            else if (data[size - 1]['line'].includes("H")){
                 cell1.style.backgroundColor = "#10069F"
                 cell1.style.color = "#FFFFFF"
             }
 
-            else if (data[size - 1].line.includes("V")){
+            else if (data[size - 1]['line'].includes("V")){
                 cell1.style.backgroundColor = "#43B02A"
                 cell1.style.color = "#FFFFFF"
             }
 
-            else if (data[size - 1].line.includes("X")) {
+            else if (data[size - 1]['line'].includes("X")) {
                 cell1.style.backgroundColor = "#000000"
                 cell1.style.color = "#FFFFFF"
             }
@@ -56,20 +57,13 @@
             }
 
             cell1.style.fontWeight = "bold"
-            cell1.innerHTML = data[size - 1].line
-            cell2.innerHTML = data[size - 1].destination
-            cell3.style.fontStyle = "italic"
-            cell3.innerHTML = 'Muy pronto'
+            cell1.innerHTML = data[size - 1]['line']
+            cell2.innerHTML = data[size - 1]['destination']
+            cell3.innerHTML = data[size - 1]['text-ca']
             size--
         }
 
-        function addRowErr(){
-            document.getElementById('iBus').style.display = "none"
-
-            cell1.innerHTML = 'No se pueden obtener datos'
-        }
-
-        function check(data, listSize){
+        function check(data){
             do {
                 try {
                     addRow(data)
@@ -78,6 +72,11 @@
                     break
                 }
             } while (size != 0)
+        }
+
+        function addRowErr(){
+            document.getElementById('iBus').style.display = "none"
+            cell1.innerHTML = 'No se pueden obtener datos'
         }
 
         function loadAPI() {
@@ -99,8 +98,7 @@
                 .then(res => res.json())
                 .then(out => {
                         size = out.data.ibus.length
-                        check(out.data.ibus, size
-                        )
+                        check(out.data.ibus)
                     }
                 )
 
@@ -110,10 +108,12 @@
                 .then(out => {
                         try{
                             document.getElementById("nomParada").innerText = "[" + out.features[0].properties.CODI_PARADA + "] " + out.features[0].properties.NOM_PARADA
-                            document.getElementById("divAviso").style.display = "block"
+                            document.getElementById("divError").style.display = "none"
+                          //document.getElementById("divAviso").style.display = "block"
                         } catch (e) {
                             document.getElementById("nomParada").innerText = "ERROR"
                             document.getElementById("divError").style.display = "block"
+                          //document.getElementById("divAviso").style.display = "none"
                     }
                 }
             )
