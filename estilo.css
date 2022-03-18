@@ -2,7 +2,7 @@ body{
     font-family: "TheSans B7", sans-serif;
 }
 
-button{
+button.carita{
     background-color: gray;
     width: 400px;
     height: 100px;
@@ -10,8 +10,21 @@ button{
     font-weight: bold;
 }
 
-button:hover{
+button.carita:hover{
     background-color: #9d9d9d;
+}
+
+button.iBusPage{
+    background-color: #E02525FF;
+    font-weight: bold;
+    color: white;
+    margin-top: 15px;
+    height: 50px;
+    width: 250px;
+}
+
+button.iBusPage:hover{
+    background-color: #ff7d7d;
 }
 
 .centrar {
@@ -38,24 +51,49 @@ table.tabla {
     border-collapse: collapse;
 }
 
-td.tituloTabla {
+tr.tituloTabla td {
+    font-size: 24px;
+    background-color: grey;
+    color: white;
     font-weight: bold;
     text-align: center;
     width: 125px;
+}
+
+tr.tituloTabla td.destinacion{
+    width: 215px;
+}
+
+h1.parada {
+    padding-bottom: 5px;
 }
 
 table, th, td {
     border: 3px solid #000000;
 }
 
-#botonDuerme{
+div.error{
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: lightcoral;
+}
+
+div.aviso{
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f0e180;
+}
+
+#botonDuerme {
     display: none;
 }
 
-#botonFeliz{
+#botonFeliz {
     display: none;
 }
 
-#botonDecir{
+#botonDecir {
     display: none;
 }

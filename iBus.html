@@ -8,11 +8,16 @@
     <script type='text/javascript' src='config.js'></script>
     <script>
         var apiTMB = config.TMB_API_TOKEN
-        var valor = prompt("Introduce tu código de parada")
-        if (valor == "" || valor == " " || valor == null){
-            valor = 0
-        }
+        var valor = getStopCode()
         let size = 0
+
+        function getStopCode(){
+            valor = prompt("🚏 Introduce tu código de parada")
+            if (valor == "" || valor == " " || valor == null){
+                valor = 0
+            }
+            return valor
+        }
 
         function addRow(data){
             const table = document.getElementById('iBus'),
@@ -22,17 +27,17 @@
                 cell3 = row.insertCell(2);
 
             if (data[size - 1].line.includes("D")){
-                cell1.style.backgroundColor = "#894796"
+                cell1.style.backgroundColor = "#8E308A"
                 cell1.style.color = "#FFFFFF"
             }
 
             else if (data[size - 1].line.includes("H")){
-                cell1.style.backgroundColor = "#2D4191"
+                cell1.style.backgroundColor = "#10069F"
                 cell1.style.color = "#FFFFFF"
             }
 
             else if (data[size - 1].line.includes("V")){
-                cell1.style.backgroundColor = "#547B31"
+                cell1.style.backgroundColor = "#43B02A"
                 cell1.style.color = "#FFFFFF"
             }
 
@@ -42,23 +47,22 @@
             }
 
             else {
-                cell1.style.backgroundColor = "#C62A0F"
+                cell1.style.backgroundColor = "#DA291C"
                 cell1.style.color = "#FFFFFF"
             }
 
+            cell1.style.fontWeight = "bold"
             cell1.innerHTML = data[size - 1].line
             cell2.innerHTML = data[size - 1].destination
+            cell3.style.fontStyle = "italic"
             cell3.innerHTML = 'Muy pronto'
             size--
         }
 
-        function addRowErr(data){
-            const table = document.getElementById('iBus'),
-                row = table.insertRow(1),
-                cell1 = row.insertCell(0);
-                cell1.colSpan = 3;
+        function addRowErr(){
+            document.getElementById('iBus').style.display = "none"
+
             cell1.innerHTML = 'No se pueden obtener datos'
-            size = 0
         }
 
         function check(data, listSize){
@@ -66,7 +70,7 @@
                 try {
                     addRow(data)
                 } catch (e) {
-                    addRowErr(data)
+                    addRowErr()
                     break
                 }
             } while (size != 0)
@@ -87,10 +91,11 @@
             .then(res => res.json())
             .then(out => {
                 try{
-                    document.getElementById("nomParada").style.display = "inline"
                     document.getElementById("nomParada").innerText = "[" + out.features[0].properties.CODI_PARADA + "] " + out.features[0].properties.NOM_PARADA
+                    document.getElementById("divAviso").style.display = "block"
                 } catch (e) {
-                    document.getElementById("nomParada").style.display = "none"
+                    document.getElementById("nomParada").innerText = "ERROR"
+                    document.getElementById("divError").style.display = "block"
                     }
                 }
             )
@@ -100,21 +105,35 @@
 <body>
     <div class="lista">
         <select onchange="if (this.value) window.location.href=this.value">
-            <option value="">Selecciona página:</option>
-            <option value="./page1.html">Página 1</option>
+            <option value="#">Selecciona página:</option>
+            <option value="#">iBus (Estás aquí)</option>
             <option value="./index.html">Carita</option>
         </select>
     </div>
-    <br/>
-    <h1 id="nomParada">Cargando...</h1>
-    <table id="iBus" class="tabla">
-        <tbody>
-        <tr>
-            <td class="tituloTabla">Linea</td>
-            <td class="tituloTabla">Proximo bus</td>
-            <td class="tituloTabla">Llegada</td>
-        </tr>
-        </tbody>
-    </table>
+
+    <div class="result">
+        <h1 id="nomParada">Cargando...</h1>
+        <table id="iBus" class="tabla">
+            <tbody>
+            <tr class="tituloTabla">
+                <td>Linea</td>
+                <td class="destinacion">Destinación</td>
+                <td>Tiempo restante</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="error" id="divError">
+        <h1>🚍❌️ ERROR</h1>
+        <h2>Comprueba que tengas conexión a internet, que el código de parada haya sido introducido correctamente o que la parada no esté anulada temporal o permanentemente.</h2>
+    </div>
+
+    <div class="aviso" id="divAviso">
+        <h2>🚍⚠️ AVISO</h2>
+        <h4>Sistema de próximo bus actualmente no disponible. (Ya veré como lo arreglo 'x] sorry)</h4>
+    </div>
+
+    <button class="iBusPage" onclick="location.reload();">Volver a introducir código de parada</button>
 </body>
 </html>
