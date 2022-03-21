@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>My Simple iBus</title>
     <link rel="stylesheet" href="estilo.css">
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/9/93/Aiga_bus.svg">
+    <link rel="icon" href="favicon.png">
     <script type='text/javascript' src='config.js'></script> <!-- Archivo privado donde lo tengo guarado (está en el gitignore) -->
     <script>
         // var TMB_APP_ID = config.TMB_APP_ID
@@ -13,6 +13,13 @@
         var TMB_APP_KEY = ''
         var STOPCODE = ''
         let size = 0
+
+        function loadRandom(){
+            const paradaRandom = Math.floor(Math.random() * 9999) + 1
+            document.getElementById("stopCode").value = paradaRandom
+            STOPCODE = paradaRandom
+            loadAPI()
+        }
 
         function getStopCode(){
             STOPCODE = document.getElementById("stopCode").value
@@ -91,10 +98,14 @@
 
             document.getElementById("nomParada").innerText = "Cargando..."
             document.getElementById("botonBuscarIBUS").disabled = true
+            document.getElementById("botonBuscarIBUSRandom").disabled = true
+            document.getElementById("botonBuscarIBUSRandom").innerText = "Espere..."
             document.getElementById("botonBuscarIBUS").innerText = "Espere..."
             setTimeout(()=> {
                 document.getElementById("botonBuscarIBUS").disabled = false
-                document.getElementById("botonBuscarIBUS").innerText = "Buscar"}, 1500)
+                document.getElementById("botonBuscarIBUSRandom").disabled = false
+                document.getElementById("botonBuscarIBUS").innerText = "Buscar"
+                document.getElementById("botonBuscarIBUSRandom").innerText = "Aleatorio"}, 1500)
             TMB_APP_ID = document.getElementById("appID").value;
             TMB_APP_KEY = document.getElementById("appKey").value;
             STOPCODE = getStopCode();
@@ -141,6 +152,10 @@
             <option value="./index.html">Carita</option>
         </select>
     </div>
+    <div class="aviso" id="divAviso">
+        <h2>📱⚠️ AVISO</h2>
+        <h4>Hemos detectado que estás navegando esta página con un teléfono movil. Esta web <b>NO</b> está (aún) optimizado para estos dispositivos. Disculpen las molestias.</h4>
+    </div>
     <br/>
     <form>
         <label for="appID">APP ID:</label><br>
@@ -151,6 +166,7 @@
         <input type="number" id="stopCode" min="1" max="9999"><br><br>
     </form>
     <button id="botonBuscarIBUS" onclick="loadAPI()">Buscar</button>
+    <button id="botonBuscarIBUSRandom" onclick="loadRandom()">Aleatorio</button>
 
     <div class="dobleParada" id="divDobleParada">
         <div class="fotoDP">
@@ -177,11 +193,6 @@
     <div class="error" id="divError">
         <h1>🚍❌️ ERROR</h1>
         <h2>Comprueba que tengas conexión a internet, que tus claves de API estén bien puestas o, que el código de parada haya sido introducido correctamente o que la parada no esté anulada temporal o permanentemente.</h2>
-    </div>
-
-    <div class="aviso" id="divAviso">
-        <h2>🚍⚠️ AVISO</h2>
-        <h4>&#x200B;</h4>
     </div>
 </body>
 </html>
