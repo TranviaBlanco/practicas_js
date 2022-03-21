@@ -72,6 +72,23 @@ table, th, td {
     border: 3px solid #000000;
 }
 
+div.dobleParada{
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #9e9e9e;
+}
+
+div.fotoDP {
+    flex: 15%;
+    padding: 5px;
+}
+
+div.textoDP {
+    flex: 85%;
+    padding: 5px;
+}
+
 div.error{
     display: none;
     margin-top: 15px;

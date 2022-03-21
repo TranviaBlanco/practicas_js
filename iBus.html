@@ -114,19 +114,23 @@
                 .then(res => res.json())
                 .then(out => {
                         try{
-                            document.getElementById("nomParada").style.display = "inline"
-                            document.getElementById("nomParada").innerText = "[" + out.features[0].properties.CODI_PARADA + "] " + out.features[0].properties.NOM_PARADA
+                            document.getElementById("nomParada").style.display = "block"
                             document.getElementById("divError").style.display = "none"
-                          //document.getElementById("divAviso").style.display = "block"
+                            document.getElementById("nomParada").innerText = "[" + out.features[0].properties.CODI_PARADA + "] " + out.features[0].properties.NOM_PARADA
+                            if (out.features[0].properties.PUNTS_PARADA !== 1) {
+                                document.getElementById("divDobleParada").style.display = "flex"
+                            } else{
+                                document.getElementById("divDobleParada").style.display = "none"
+                            }
+
                         } catch (e) {
+                            document.getElementById("divDobleParada").style.display = "none"
                             document.getElementById("nomParada").style.display = "none"
                             document.getElementById("divError").style.display = "block"
-                          //document.getElementById("divAviso").style.display = "none"
                     }
                 }
             )
         }
-
     </script>
 </head>
 <body>
@@ -147,6 +151,15 @@
         <input type="number" id="stopCode" min="1" max="9999"><br><br>
     </form>
     <button id="botonBuscarIBUS" onclick="loadAPI()">Buscar</button>
+
+    <div class="dobleParada" id="divDobleParada">
+        <div class="fotoDP">
+            <img src="https://pro.static.noticies.tmb.cat/s3fs-public/punt-parada-busbcn-doble-espanya.jpg" height="150px">
+        </div>
+        <div class="textoDP">
+            <h2><u>¡ATENCIÓN: DOBLE PARADA!</u> Esta estación dispone de punto de parada doble. Esto significa que dos autobuses pueden efectuar parada al mismo tiempo. ¡Fíjese en donde efectua parada su autobús!</h2>
+        </div>
+    </div>
 
     <div class="result">
         <h1 id="nomParada">iBus</h1>
