@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Data</title>
+</head>
+<style>
+    h5 {
+        font-family: "Khmer OS System", sans-serif;
+        text-align: center;
+        margin: 1px;
+    }
+
+    .container {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+    }
+
+    .base {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .line {
+        color: #000000;
+        letter-spacing: -4px;
+        text-align: center;
+        font-size: 45px;
+        font-family: "Khmer OS System",sans-serif;
+        font-weight: bolder;
+    }
+
+    .scroll-container-fix {
+        position: absolute;
+        background-color: #FFDC00;
+        height: 120px;
+        width: 90px;
+        align-items: flex-start;
+    }
+
+    .scroll-container {
+        background-color: #121212;
+        color: #FFFFFF;
+        height: 120px;
+        width: 600px;
+        overflow: hidden;
+        align-items: baseline;
+    }
+
+    .vertical {
+        position: absolute;
+        border-left: 5px solid #FFDC00;
+        left: 88%;
+        height: 120px;
+    }
+
+    a {
+        color: #FFDC00;
+    }
+
+    p.titles {
+        margin-right: -35px;
+        margin-bottom: -55px;
+        text-align: right;
+        font-family: "Khmer OS System",sans-serif;
+        font-weight: bolder;
+    }
+
+    p.subtitles {
+        margin-right: -25px;
+        text-align: right;
+        font-size: 45px;
+        font-family: "Khmer OS System",sans-serif;
+        font-weight: bolder;
+    }
+
+    .scroll-text {
+        height: auto;
+        text-align: right;
+        margin-right: 45px;
+        font-size: 25px;
+        font-family: "Khmer OS System",sans-serif;
+        font-weight: bolder;
+
+        /* animation properties */
+        -moz-transform: translateY(100%);
+        -webkit-transform: translateY(100%);
+        transform: translateY(100%);
+
+        /*50 segundos de retardo*/
+        animation-play-state: paused;
+        animation-name: my-animation;
+        animation-duration: 100s;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        animation-delay: -50200ms;
+    }
+
+    @keyframes my-animation {
+        from {
+            -moz-transform: translateY(100%);
+            -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+        }
+        to {
+            -moz-transform: translateY(-100%);
+            -webkit-transform: translateY(-100%);
+            transform: translateY(-100%);
+        }
+    }
+</style>
+<body>
+    <div class="container">
+        <h5>Tip: Si estás con el móvil, pon la pantalla en horizontal.</h5>
+        <div class="base">
+            <div class="scroll-container-fix"><h1 class="line">R12</h1></div>
+            <div class="scroll-container">
+                <div class= "vertical"></div>
+                <div class="scroll-text">
+                    <p class="titles">Destinació ⠀ ⠀ ⠀  ⠀  ⠀   ⠀  ⠀  ⠀ ⠀⠀  ⠀ ⠀ ⠀Min.</p>
+                    <p class="subtitles">LLEIDA PIRINEUS ⠀ 5</p>
+                    L’Hospitalet De Llobregat<a> ⠀ ◼</a><br><br>
+                    Barcelona - Sants<a> ⠀ ◼</a><br><br>
+                    Catalunya<a> ⠀ ◼</a><br><br>
+                    Arc De Triomf<a> ⠀ ◼</a><br><br>
+                    La Sagrera<a> ⠀ ◼</a><br><br>
+                    Barcelona - Sant Andreu Arenal<a> ⠀ ◼</a><br><br>
+                    Torre Del Baró<a> ⠀ ◼</a><br><br>
+                    Montcada Bifurcació<a> ⠀ ◼</a><br><br>
+                    Montcada I Reixac-Manresa<a> ⠀ ◼</a><br><br>
+                    Montcada I Reixac-Sta. Maria<a> ⠀ ◼</a><br><br>
+                    Cerdanyola Del Vallès<a> ⠀ ◼</a><br><br>
+                    Barberà Del Vallès<a> ⠀ ◼</a><br><br>
+                    Sabadell Sud<a> ⠀ ◼</a><br><br>
+                    Sabadell Centre<a> ⠀ ◼</a><br><br>
+                    Sabadell Nord<a> ⠀ ◼</a><br><br>
+                    Terrassa Est<a> ⠀ ◼</a><br><br>
+                    Terrassa - Estacio Del Nord<a> ⠀ ◼</a><br><br>
+                    Sant Vicenç De Castellet<a> ⠀ ◼</a><br><br>
+                    Manresa<a> ⠀ ◼</a><br><br>
+                    Rajadell<a> ⠀ ◼</a><br><br>
+                    Aguilar De Segarra<a> ⠀ ◼</a><br><br>
+                    Seguers - Sant Pere Sallavinera<a> ⠀ ◼</a><br><br>
+                    Calaf<a> ⠀ ◼</a><br><br>
+                    Sant Martí Sesgueioles<a> ⠀ ◼</a><br><br>
+                    Sant Guim De Freixenet<a> ⠀ ◼</a><br><br>
+                    Cervera<a> ⠀ ◼</a><br><br>
+                    Tàrrega<a> ⠀ ◼</a><br><br>
+                    Anglesola<a> ⠀ ◼</a><br><br>
+                    Bellpuig<a> ⠀ ◼</a><br><br>
+                    Castellnou De Seana<a> ⠀ ◼</a><br><br>
+                    Golmés<a> ⠀ ◼</a><br><br>
+                    Mollerussa<a> ⠀ ◼</a><br><br>
+                    Bell-Lloc D'Urgell<a> ⠀ ◼</a><br><br>
+                    Lleida Pirineus<a> ⠀ ◼</a><br><br>
+                    <p class="titles">Destinació ⠀ ⠀ ⠀  ⠀  ⠀   ⠀  ⠀  ⠀ ⠀⠀  ⠀ ⠀ ⠀Min.</p>
+                    <p class="subtitles">LLEIDA PIRINEUS ⠀ 5</p>
+                </div>
+            </div>
+        </div>
+        <button onclick="start()" id="animationButton">Comença</button>
+    </div>
+</body>
+<script>
+    function start() {
+        document.getElementById("animationButton").disabled = true
+        document.getElementsByClassName("scroll-text")[0].style.animationPlayState = 'running'
+        setTimeout(end, 48260)
+    }
+
+    function end() {
+        document.getElementById("animationButton").disabled = false
+        document.getElementsByClassName("scroll-text")[0].style.animationPlayState = 'paused'
+    }
+</script>
+</html>
